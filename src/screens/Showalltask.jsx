@@ -3,11 +3,11 @@ import Footer from './../components/Footer.jsx'
 import taskimg from './../assets/task.png'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { supabase } from './../libs/SupabaseClient.js'
- 
+import { supabase } from './../libs/supabaseClient.js'
+
 export default function ShowAllTask() {
   const [tasks, setTasks] = useState([])
- 
+
   //จะทำงานตอนที่เพจถูกเปิดขึ้นมา (rendered)
   useEffect(()=>{
     //ดึงข้อมูลงานทั้งหมดจาก Supabase
@@ -28,7 +28,7 @@ export default function ShowAllTask() {
           setTasks(data)
         }
       }
- 
+
       //เรียกใช้ฟังก์ชันดึงข้อมูลให้ทำงาน
       fetchTasks()
     }catch(error){
@@ -36,7 +36,7 @@ export default function ShowAllTask() {
       console.log("Error fetching tasks:", error)
     }
   },[])
- 
+
   //สร้างฟังกช์นลบข้อมูลออกจาก task_tb และลบรูปออกจาก task_bk(ถ้ามี)
   const handleDeleteClick = async (id, imageUrl) => {
       //ถามยืนยันการลบข้อมูลก่อน
@@ -48,10 +48,10 @@ export default function ShowAllTask() {
               //ได้ชื่อรูปมาแล้วก็ ไปลบออกจาก task_bk
               await supabase.storage.from('task_bk').remove([imageName])
           }
- 
+
           //ลบข้อมูลออกจาก task_tb
-          const {data, error } = await supabase.from('Main').delete().eq('id', id)
- 
+          const { error } = await supabase.from('Main').delete().eq('id', id)
+
           if(error){
               alert("เกิดข้อผิดพลาดในการลบข้อมูลงาน กรุณาลองใหม่อีกครั้ง!!!")
               return
@@ -63,28 +63,28 @@ export default function ShowAllTask() {
           }
       }
   }
- 
+
   return (
     <div>
-      <div className="w-8/12 border-gray-300 shadow-md rounded p-5
+      <div className="w-8/12 border-gray-300 shadow-md rounded p-5 
                       mx-auto mt-20 flex flex-col items-center">
- 
-        <img src={taskimg} alt="Task" className="w-30 mb-4" />  
- 
+
+        <img src={taskimg} alt="Task" className="w-30 mb-4" />   
+
         <h1 className="text-2xl font-bold text-gray-800 text-center">
           Task Application
           <br />
           -- ข้อมูลงานทั้งหมด --
         </h1>      
- 
+
         {/* ส่วนของปุ่มเปิดไปหน้า /addtask  */}
         <div className="w-full flex justify-end mt-4 mb-7">
-          <Link to="/addtask" className="bg-blue-500 hover:bg-blue-600
+          <Link to="/addtask" className="bg-blue-500 hover:bg-blue-600 
                                            cursor-pointer p-3 text-white rounded">
             เพิ่มงานใหม่
           </Link>
         </div>
- 
+
         {/* ส่วนของการแสดงข้อมูลงานทั้งหมดจาก Supabase */}
         <div className="w-full">
           <table className="w-full border border-gray-700 text-sm">
@@ -117,7 +117,7 @@ export default function ShowAllTask() {
                     <td className="p-2 border border-gray-700">{task.detail}</td>
                     <td className="p-2 border border-gray-700 text-center">
                       {
-                        task.is_completed == true
+                        task.is_completed == true 
                         ? <span className='text-green-500'>✅งานเสร็จแล้ว</span>  
                         : <span className='text-red-500'>❌งานยังไม่เสร็จ</span>
                       }
@@ -139,7 +139,7 @@ export default function ShowAllTask() {
                     <td className="p-2 border border-gray-700 text-center">
                       <Link to={'/updatetask/'+task.id} className='text-green-400 mr-2'>แก้ไข</Link>
                       <button onClick={()=>handleDeleteClick(task.id, task.image_url)}
-                              className='text-red-400 ml-2 cursor-pointer'>
+                              className='text-red-400 ml-2 cursor-pointer'> 
                         ลบ
                       </button>
                     </td>
@@ -150,7 +150,7 @@ export default function ShowAllTask() {
           </table>
         </div>
       </div>
- 
+
       <Footer />
     </div>
   )

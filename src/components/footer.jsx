@@ -1,13 +1,13 @@
 import React from 'react'
 
-export default function footer() {
+export default function Footer() {
   return (
     <div>
-      <h1 className="text-center text-lg my-20">
-        created by PP 
+      <h1 className="text-center text-sm my-10">
+        Created by NinniN DTI SAU
         <br />
-        copyright &copy; 2025 Southeast Asia university
+        Copyright © 2025 Southeast Asia University
       </h1>
-      </div>
+    </div>
   )
 }
