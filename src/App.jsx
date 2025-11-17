@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import ShowAllTask from '././screens/ShowAllTask.jsx'
+import ShowAllTask from './screens/ShowAllTask.jsx'
 import AddTask from './screens/AddTask.jsx'
 import UpdateTask from './screens/UpdateTask.jsx'
 import Home from './screens/Home.jsx'
